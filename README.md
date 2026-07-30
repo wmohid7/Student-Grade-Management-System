@@ -2,9 +2,9 @@
 
 ## Overview
 
-The Student Grade Management System is a web-based application built using HTML5, CSS3, and JavaScript (ES6). It allows users to efficiently manage student records by adding, editing, deleting, searching, and sorting student information. The application automatically calculates grades, determines pass/fail status, and displays key statistics through an interactive dashboard.
+The Student Grade Management System is a web-based application built using HTML5, CSS3, and JavaScript (ES6). It allows users to efficiently manage student records by adding, editing, deleting, searching, sorting, and filtering student information. The application automatically calculates grades, determines pass/fail status, highlights the top-performing student, stores data using Local Storage, and displays key statistics through an interactive dashboard.
 
-This project demonstrates core front-end development concepts, including DOM manipulation, event handling, JavaScript arrays and objects, functions, and responsive web design.
+This project demonstrates core front-end development concepts, including DOM manipulation, event handling, JavaScript arrays and objects, functions, Local Storage, and responsive web design.
 
 ## Features
 
@@ -18,6 +18,14 @@ This project demonstrates core front-end development concepts, including DOM man
   - Name (A–Z)
   - Marks (Ascending)
   - Marks (Descending)
+- Filter student records:
+  - Show All Students
+  - Show Passed Students
+  - Show Failed Students
+- Highlight the student(s) with the highest marks
+- Display a message when no student records are available
+- Reset the student input form
+- Store student records using Local Storage
 - Dashboard displaying:
   - Total Students
   - Average Marks
@@ -32,6 +40,7 @@ This project demonstrates core front-end development concepts, including DOM man
 - HTML5
 - CSS3
 - JavaScript (ES6)
+- Local Storage
 
 ## Learning Outcomes
 
@@ -43,13 +52,7 @@ This project demonstrates the implementation of:
 - Arrays and Objects
 - Functions
 - Search and Sorting
+- Data Filtering
+- Local Storage
 - Dynamic Dashboard Updates
 - Responsive Web Design
-
-## Future Enhancements
-
-- Store data using Local Storage or a database
-- Export student records to CSV or PDF
-- Add user authentication
-- Implement pagination for large datasets
-- Include charts for data visualization
