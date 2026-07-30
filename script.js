@@ -83,7 +83,7 @@ function displayStudents(list) {
 
         No Student Record Found.
 
-        </td?
+        </td>
 
         </tr>
         
