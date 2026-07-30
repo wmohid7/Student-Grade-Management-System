@@ -277,8 +277,14 @@ tr:nth-child(even){
 
 tr:hover{
 
-    background:white;
+    background:rgb(114, 243, 247);
 
+}
+
+ .topper{  /* Bonus Feature */
+
+    background: rgb(78, 177, 231);
+    font-weight:bold;
 }
 
 
@@ -305,12 +311,32 @@ td button:first-child{
 
 }
 
+td button:first-child:hover{
+
+    background: rgb(82, 165, 165);
+}
+
 td button:last-child{
 
     background:rgb(52, 132, 143);
 
     color:white;
 
+}
+
+td button:last-child:hover{
+
+background:rgb(82, 165, 165); ;
+
+}
+
+.empty-state{
+
+    padding:25px;
+    color:rgb(146, 134, 134);
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
 }
 
 /* FOOTER */
@@ -361,6 +387,16 @@ td button:last-child{
 
     }
 
+    table{
+
+        font-size:14px;
+    }
+
+    th,
+    td{
+        padding:10px;
+    }
+
 }
 
 </style>
@@ -396,6 +432,10 @@ td button:last-child{
                     <button type="button" id="addBtn">
                         Add Student
                     </button>
+                          <!-- Bonus Feature -->
+                    <button type="button" id="resetBtn" onclick="resetForm()">
+                        Reset Form
+                    </button>
 
                 </form>
              </div>
@@ -404,6 +444,7 @@ td button:last-child{
 
              <div class="dashboard">
                 <h2>Dashboard</h2>
+
                 <div class="dashboard-grid">
 
                     <div class="card">
@@ -462,6 +503,19 @@ td button:last-child{
                 <button onclick="SortName()">
                     Sort Name A-Z 
                 </button>
+
+                <!-- Bonus Features -->
+                 <button onclick="showAll()">
+                    Show All
+                 </button>
+
+                 <button onclick="showPassed()">
+                    Show Passed
+                 </button>
+
+                 <button onclick="showFailed()">
+                    Show Failed
+                 </button>
 
             </div>
 

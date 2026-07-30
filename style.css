@@ -1,4 +1,5 @@
 
+    
 
 
 /* Universal selector  */
@@ -12,7 +13,7 @@ box-sizing:border-box;
 /* BODY */
 
 body {
-    background:lightblue;
+    background:rgb(60, 119, 138);
     color:darkslategrey
 }
 
@@ -60,7 +61,7 @@ margin:30px auto;
     background: white;
     padding:25px;
     border-radius:10px;
-     
+ 
 }
 
 .student-form h2{
@@ -230,6 +231,8 @@ margin:30px auto;
 
     margin-bottom:20px;
 
+
+
 }
 
 table{
@@ -242,7 +245,7 @@ table{
 
 th{
 
-    background:rgb(52, 132, 143);
+    background:rgb(18, 79, 87);
 
     color:white;
 
@@ -267,9 +270,16 @@ tr:nth-child(even){
 
 tr:hover{
 
-    background:white;
+    background:rgb(114, 243, 247);
 
 }
+
+ .topper{  /* Bonus Feature */
+
+    background: rgb(78, 177, 231);
+    font-weight:bold;
+}
+
 
 
 td button{
@@ -294,12 +304,32 @@ td button:first-child{
 
 }
 
+td button:first-child:hover{
+
+    background: rgb(82, 165, 165);
+}
+
 td button:last-child{
 
     background:rgb(52, 132, 143);
 
     color:white;
 
+}
+
+td button:last-child:hover{
+
+background:rgb(82, 165, 165); ;
+
+}
+
+.empty-state{
+
+    padding:25px;
+    color:rgb(146, 134, 134);
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
 }
 
 /* FOOTER */
@@ -350,4 +380,15 @@ td button:last-child{
 
     }
 
+    table{
+
+        font-size:14px;
+    }
+
+    th,
+    td{
+        padding:10px;
+    }
+
 }
+

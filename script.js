@@ -1,4 +1,4 @@
-let students = [];
+let students = JSON.parse(localStorage.getItem("students")) || []; 
  let editIndex = -1;  
 
 
@@ -52,7 +52,7 @@ function addOrUpdateStudent() {
         editIndex = -1;    
         addBtn.textContent = "Add Student";
     }
-
+    saveToLocalStorage();
     clearForm();
     displayStudents(students);
     updateDashboard();
@@ -70,12 +70,36 @@ function getGrade(marks) {
 
 function displayStudents(list) {
 
-    tableBody.innerHTML = "";  
+    tableBody.innerHTML = ""; 
+
+    // Bonus Feature 
+    
+    if (list.length === 0) {
+        tableBody.innerHTML = `
+        
+        <tr> 
+
+        <td colspan="6" class="empty-state">
+
+        No Student Record Found.
+
+        </td?
+
+        </tr>
+        
+        `;
+
+        return;
+    }
+
+            //  Bonus feature 
+    const highestMarks = Math.max(...students.map(student => student.marks))
+
                                    
     list.forEach((student, index) => {
 
         tableBody.innerHTML += `
-        <tr>
+        <tr class="${student.marks === highestMarks ? "topper" : ""}">
             <td>${student.roll}</td>
             <td>${student.name}</td>
             <td>${student.marks}</td>
@@ -115,8 +139,10 @@ function deleteStudent(index) {
 
     if (confirm("Delete this student?")) {
 
-        students.splice(index, 1);  
-
+        students.splice(index, 1);
+        
+        
+        saveToLocalStorage();
         displayStudents(students);
         updateDashboard();  
     }
@@ -141,12 +167,14 @@ function SortMarksAsc() {
     students.sort((a, b) => a.marks - b.marks); 
 
     displayStudents(students);
+    saveToLocalStorage();
 }
 
 function SortMarksDesc() {
 
     students.sort((a, b) => b.marks - a.marks); 
     displayStudents(students);
+    saveToLocalStorage();
 }
 
 function SortName() {    
@@ -154,6 +182,34 @@ function SortName() {
     students.sort((a, b) => a.name.localeCompare(b.name));
 
     displayStudents(students);
+    saveToLocalStorage();
+}
+
+// Bonus Features 
+
+function showAll() {
+
+    displayStudents(students);
+}
+
+
+function showPassed() {
+
+    const passedStudents = students.filter(student => 
+
+        student.status === "Pass" 
+    );
+    displayStudents(passedStudents);
+
+}
+
+function showFailed() {
+
+    const failedStudents = students.filter(student =>
+        student.status === "Fail"
+    );
+
+    displayStudents(failedStudents);
 }
 
 function updateDashboard() {
@@ -202,6 +258,15 @@ function updateDashboard() {
     document.getElementById("FAILED").textContent = failed;
 }
 
+// Bonus Feature 
+
+function resetForm() {
+
+    clearForm();
+    editIndex = -1;
+    addBtn.textContent = "Add Student";
+}
+
 function clearForm() { 
 
     nameInput.value = "";
@@ -210,3 +275,17 @@ function clearForm() {
 
     nameInput.focus();
 }
+
+// Bonus Feature 
+
+function saveToLocalStorage() {
+
+    localStorage.setItem(
+        "students",
+        JSON.stringify(students)
+    );
+}
+
+displayStudents(students);
+
+updateDashboard();
