@@ -1,16 +1,31 @@
-let students = JSON.parse(localStorage.getItem("students")) || []; 
- let editIndex = -1;  
+let students = JSON.parse(localStorage.getItem("students")) || [];
+let editIndex = -1;
 
 
 const nameInput = document.getElementById("name");
 const rollInput = document.getElementById("roll");
 const marksInput = document.getElementById("marks");
-const addBtn = document.getElementById("addBtn");      
+const addBtn = document.getElementById("addBtn");
 const tableBody = document.getElementById("studentTable");
 const searchInput = document.getElementById("search");
 
-addBtn.addEventListener("click", addOrUpdateStudent); 
+
+document.getElementById("TOTAL").textContent = students.length;
+document.getElementById("AVERAGE").textContent = 0;
+document.getElementById("HIGHEST").textContent = 0;
+document.getElementById("LOWEST").textContent = 0;
+document.getElementById("PASSED").textContent = 0;
+document.getElementById("FAILED").textContent = 0;
+
+
+addBtn.addEventListener("click", addOrUpdateStudent);
 searchInput.addEventListener("keyup", searchStudents);
+
+function refresh(list = students) {
+    saveToLocalStorage();
+    displayStudents(list);
+    updateDashboard();
+}
 
 function addOrUpdateStudent() {
 
@@ -20,7 +35,7 @@ function addOrUpdateStudent() {
 
     if (name === "" || roll === "" || marksInput.value === "") {
         alert("Please fill all fields.");
-        return; 
+        return;
     }
 
     if (marks < 0 || marks > 100) {
@@ -28,9 +43,9 @@ function addOrUpdateStudent() {
         return;
     }
 
-    const duplicate = students.find((student, index) =>
+    const duplicate = students.some((student, index) =>
         student.roll === roll && index !== editIndex
-    );   
+    );
 
     if (duplicate) {
         alert("Roll Number already exists.");
@@ -43,13 +58,13 @@ function addOrUpdateStudent() {
         marks,
         grade: getGrade(marks),
         status: marks >= 60 ? "Pass" : "Fail"
-    }; //student object
+    };
 
     if (editIndex === -1) {
         students.push(student);
     } else {
         students[editIndex] = student;
-        editIndex = -1;    
+        editIndex = -1;
         addBtn.textContent = "Add Student";
     }
     saveToLocalStorage();
@@ -70,56 +85,85 @@ function getGrade(marks) {
 
 function displayStudents(list) {
 
-    tableBody.innerHTML = ""; 
+    tableBody.textContent = "";
 
-    // Bonus Feature 
-    
+    // Bonus Feature
+
     if (list.length === 0) {
-        tableBody.innerHTML = `
-        
-        <tr> 
 
-        <td colspan="6" class="empty-state">
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
 
-        No Student Record Found.
+        cell.colSpan = 6;
+        cell.className = "empty-state";
+        cell.textContent = "No Student Record Found.";
 
-        </td>
-
-        </tr>
-        
-        `;
+        row.appendChild(cell);
+        tableBody.appendChild(row);
 
         return;
     }
 
-            //  Bonus feature 
-    const highestMarks = Math.max(...students.map(student => student.marks))
+    // Bonus Feature
+    const highestMarks = Math.max(...students.map(student => student.marks));
 
-                                   
     list.forEach((student, index) => {
 
-        tableBody.innerHTML += `
-        <tr class="${student.marks === highestMarks ? "topper" : ""}">
-            <td>${student.roll}</td>
-            <td>${student.name}</td>
-            <td>${student.marks}</td>
-            <td>${student.grade}</td>
-            <td>${student.status}</td>
+        // Create Row
+        const row = document.createElement("tr");
 
-            <td>
+        if (student.marks === highestMarks) {
+            row.classList.add("topper");
+        }
 
-                <button onclick="editStudent(${index})">
-                Edit
-                </button>
+        // Roll Number
+        const rollCell = document.createElement("td");
+        rollCell.textContent = student.roll;
 
-                <button onclick="deleteStudent(${index})">
-                Delete
-                </button>
+        // Student Name
+        const nameCell = document.createElement("td");
+        nameCell.textContent = student.name;
 
-            </td>
+        // Marks
+        const marksCell = document.createElement("td");
+        marksCell.textContent = student.marks;
 
-        </tr>
-        `;
+        // Grade
+        const gradeCell = document.createElement("td");
+        gradeCell.textContent = student.grade;
+
+        // Status
+        const statusCell = document.createElement("td");
+        statusCell.textContent = student.status;
+
+        // Actions
+        const actionCell = document.createElement("td");
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.onclick = function () {
+            editStudent(index);
+        };
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function () {
+            deleteStudent(index);
+        };
+
+        actionCell.appendChild(editButton);
+        actionCell.appendChild(deleteButton);
+
+        // Add all cells to the row
+        row.appendChild(rollCell);
+        row.appendChild(nameCell);
+        row.appendChild(marksCell);
+        row.appendChild(gradeCell);
+        row.appendChild(statusCell);
+        row.appendChild(actionCell);
+
+        // Add row to table
+        tableBody.appendChild(row);
     });
 }
 
@@ -129,9 +173,9 @@ function editStudent(index) {
 
     nameInput.value = student.name;
     rollInput.value = student.roll;
-    marksInput.value = student.marks; 
+    marksInput.value = student.marks;
 
-    editIndex = index;  
+    editIndex = index;
     addBtn.textContent = "Update Student";
 }
 
@@ -140,17 +184,17 @@ function deleteStudent(index) {
     if (confirm("Delete this student?")) {
 
         students.splice(index, 1);
-        
-        
+
+
         saveToLocalStorage();
         displayStudents(students);
-        updateDashboard();  
+        updateDashboard();
     }
 }
 
 function searchStudents() {
 
-    const value = searchInput.value.toLowerCase();   
+    const value = searchInput.value.toLowerCase();
 
     const filtered = students.filter(student =>
 
@@ -162,26 +206,23 @@ function searchStudents() {
     displayStudents(filtered);
 }
 
-function SortMarksAsc() {
+function sortStudents(type) {
 
-    students.sort((a, b) => a.marks - b.marks); 
+    switch (type) {
 
-    displayStudents(students);
-    saveToLocalStorage();
-}
+        case "MarksAsc":
+            students.sort((a, b) => a.marks - b.marks);
+            break;
 
-function SortMarksDesc() {
+        case "MarksDesc":
+            students.sort((a, b) => b.marks - a.marks);
+            break;
 
-    students.sort((a, b) => b.marks - a.marks); 
-    displayStudents(students);
-    saveToLocalStorage();
-}
+        case "name":
+            students.sort((a, b) => a.name.localeCompare(b.name));
+            break;
 
-function SortName() {    
-
-    students.sort((a, b) => a.name.localeCompare(b.name));
-
-    displayStudents(students);
+    }  displayStudents(students);
     saveToLocalStorage();
 }
 
@@ -195,9 +236,9 @@ function showAll() {
 
 function showPassed() {
 
-    const passedStudents = students.filter(student => 
+    const passedStudents = students.filter(student =>
 
-        student.status === "Pass" 
+        student.status === "Pass"
     );
     displayStudents(passedStudents);
 
@@ -214,42 +255,34 @@ function showFailed() {
 
 function updateDashboard() {
 
-    document.getElementById("TOTAL").textContent = students.length;
-
     if (students.length === 0) {
-
-        document.getElementById("AVERAGE").textContent = 0; 
-        document.getElementById("HIGHEST").textContent = 0;
-        document.getElementById("LOWEST").textContent = 0;
-        document.getElementById("PASSED").textContent = 0;
-        document.getElementById("FAILED").textContent = 0;
 
         return;
     }
 
     let totalMarks = 0;
-    let highest = students[0].marks; 
+    let highest = students[0].marks;
     let lowest = students[0].marks;
     let passed = 0;
     let failed = 0;
 
-    students.forEach(student => {  
+    students.forEach(student => {
 
         totalMarks += student.marks;
 
-        if (student.marks > highest) 
+        if (student.marks > highest)
             highest = student.marks;
 
         if (student.marks < lowest)
             lowest = student.marks;
 
-        if (student.marks >= 60) 
+        if (student.marks >= 60)
             passed++;
         else
             failed++;
     });
 
-    document.getElementById("AVERAGE").textContent =       
+    document.getElementById("AVERAGE").textContent =
         (totalMarks / students.length).toFixed(1);
 
     document.getElementById("HIGHEST").textContent = highest;
@@ -267,7 +300,7 @@ function resetForm() {
     addBtn.textContent = "Add Student";
 }
 
-function clearForm() { 
+function clearForm() {
 
     nameInput.value = "";
     rollInput.value = "";
@@ -284,6 +317,32 @@ function saveToLocalStorage() {
         "students",
         JSON.stringify(students)
     );
+}
+
+function handleSelection() {
+
+    const value = document.getElementById("filterSort").value;
+
+    switch (value) {
+
+        case "MarksAsc":
+        case "MarksDesc":
+        case "name":
+            sortStudents(value);
+            break;
+
+        case "all":
+            showAll();
+            break;
+
+        case "Passed":
+            showPassed();
+            break;
+
+        case "failed":
+            showFailed();
+            break;
+    }
 }
 
 displayStudents(students);

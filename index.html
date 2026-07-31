@@ -1,443 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student-Grade-System</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
-<style>
-    
 
-
-/* Universal selector  */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-/* BODY */
-
-body {
-    background:rgb(60, 119, 138);
-    color:darkslategrey
-}
-
-.header {
-
-    background:rgb(42, 62, 80);
-    color:antiquewhite;
-    text-align: center;
-
-padding:30px;
-}
-
-.header h1{
-    margin-bottom: 10px;
-    font-family:Arial, Helvetica, sans-serif ;
-}
-
-.header p{
-
-    font-size: 18px;
-    font-family:Arial, Helvetica, sans-serif;  
-
-}
-
-/* MAIN CONTAINER  */
-
-.container {
-    width:90%;
-
-margin:30px auto;
-}
-
-/* TOP-SECTION */
-
-.top-section {
-
-    display:flex;
-    gap:25px;
-    margin-bottom:30px;
-
-}
-
-.student-form {
-    flex:1;
-    background: white;
-    padding:25px;
-    border-radius:10px;
- 
-}
-
-.student-form h2{
-    text-align: center;
-    margin-bottom: 20px;
-
-}
-
-.student-form label{
-
-    display:block;
-    margin-top: 15px;
-    margin-bottom: 6px;
-    font-weight: bold;
-}
-
-.student-form input{
-
-    width:100%;
-    padding: 12px;
-    border:1px solid whitesmoke;
-    border-radius: 5px;
-    font-size: 16px;
-
-}
-
-.student-form button{
-
-    width:100%;
-    margin-top:20px;
-    padding:12px;
-    border:none;
-    border-radius: 5px;
-    background: rgb(52, 132, 143);
-    color:white;
-    font-size: 17px;
-    cursor:pointer;
-    transition: .3s;
-}
-
-.student-form button:hover{
-
-    background:rgb(52, 132, 143);
-
-}
-
-/* DASHBOARD */
-
-.dashboard {
-
-    flex:2;
-    background: white;
-    padding:25px;
-    border-radius: 10px;
-    box-shadow:0px 2px 8px rgba(0, 0, 0, 0.208) ;
-}
-
-.dashboard h2{
-    text-align: center;
-    margin-bottom: 20px;
-
-}
-
-.dashboard-grid{
-
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
-    gap:20px;
-
-
-}
-
-/* DASHBOARD CARDS */
-
-.card{
-    background:rgb(52, 132, 143);
-    color:white;
-    padding:20px;
-    border-radius: 8px;
-    text-align: center;
-    transition: .3s;
-}
-
-.card:hover{
-    transform: translateY(-5px);
-
-}
-
-.card h3{
-
-    margin-bottom: 10px;
-}
-
-.card p{
-
-    font-size: 30px;
-    font-weight: bold;
-}
-
-/* search and sort */
-
-.controls{
-    background: white;
-    padding:20px;
-    border-radius: 10px;
-    box-shadow:0px 2px 8px rgba(0, 0, 0, 0.208);
-    margin-bottom: 30px;
-    
-}
-
-.search-box{
-
-    margin-bottom: 20px;
-}
-
-.search-box input{
-
-    width:100%;
-    padding:12px;
-    border:1px solid whitesmoke;
-    border-radius: 5px;
-    font-size:16px;
-
-}
-
-.sort-buttons{
-
-    display: flex;
-    gap:15px;
-    justify-content: center;
-}
-
-.sort-buttons button{
-
-     padding:10px 20px;
-    border:none;
-    border-radius:5px;
-    background:rgb(52, 132, 143);
-    color:white;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.sort-buttons button:hover{
-
-     background:rgb(52, 132, 143);
-    
-}
-
-/* Table */
-
-.table-section{
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:10px;
-
-    box-shadow:0px 2px 8px rgba(0,0,0,0.2);
-
-}
-
-.table-section h2{
-
-    text-align:center;
-
-    margin-bottom:20px;
-
-
-
-}
-
-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-}
-
-th{
-
-    background:rgb(18, 79, 87);
-
-    color:white;
-
-}
-
-th,
-td{
-
-    padding:15px;
-
-    border:1px solid white;
-
-    text-align:center;
-
-}
-
-
-tr:hover{
-
-    background:rgb(114, 243, 247);
-
-}
-
- .topper{  /* Bonus Feature */
-
-    background: rgb(78, 177, 231);
-    font-weight:bold;
-}
-
-
-
-td button{
-
-    padding:8px 12px;
-
-    margin:3px;
-
-    border:none;
-
-    border-radius:4px;
-
-    cursor:pointer;
-
-}
-
-td button:first-child{
-
-    background:rgb(52, 132, 143);
-
-    color:white;
-
-}
-
-td button:first-child:hover{
-
-    background: rgb(82, 165, 165);
-}
-
-td button:last-child{
-
-    background:rgb(52, 132, 143);
-
-    color:white;
-
-}
-
-td button:last-child:hover{
-
-background:rgb(82, 165, 165); ;
-
-}
-
-.empty-state{
-
-    padding:25px;
-    color:rgb(146, 134, 134);
-    font-size: 18px;
-    font-style: italic;
-    text-align: center;
-}
-
-/* FOOTER */
-
-.footer{
-
-    background:rgb(42, 62, 80);
-
-    color:white;
-
-    text-align:center;
-
-    padding:20px;
-
-    margin-top:30px;
-
-}
-
-/* RESPONSIVE DESIGN */
-
-@media(max-width:900px){
-
-    .top-section{
-
-        flex-direction:column;
-
-    }
-
-    .dashboard-grid{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-}
-
-@media(max-width:600px){
-
-    .dashboard-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .sort-buttons{
-
-        flex-direction:column;
-
-    }
-
-    table{
-
-        font-size:14px;
-    }
-
-    th,
-    td{
-        padding:10px;
-    }
-
-}
-
-</style>
 <body>
     <!-- header -->
-     <header class="header">
+    <header class="header">
         <h1>STUDENT GRADE MANAGEMENT SYSTEM</h1>
 
-      <p>Manage Student Records Efficiently</p> 
+        <p>Manage Student Records Efficiently</p>
 
-     </header>
-     <!-- main container  -->
-      <main class="container">
+    </header>
+    <!-- main container  -->
+    <main class="container">
 
         <section class="top-section">
 
             <!-- student form  -->
-             <div class="student-form">
+            <div class="student-form">
 
-                <h2>Add student</h2>
+                <h2>Add Student</h2>
 
                 <form id="studentForm">
 
-                    <label>Student Name</label>
+                    <label for="name">Student Name</label>
                     <input type="text" id="name" placeholder="Enter Your Name">
-                    
-                    <label>Roll Number</label>
+
+                    <label for="roll">Roll Number</label>
                     <input type="number" id="roll" placeholder="Enter Your Roll Number">
 
-                    <label>Marks</label>
+                    <label for="marks">Marks</label>
                     <input type="number" id="marks" placeholder="Enter Marks">
 
                     <button type="button" id="addBtn">
                         Add Student
                     </button>
-                          <!-- Bonus Feature -->
+                    <!-- Bonus Feature -->
                     <button type="button" id="resetBtn" onclick="resetForm()">
                         Reset Form
                     </button>
 
                 </form>
-             </div>
+            </div>
 
-             <!-- Dashboard -->
+            <!-- Dashboard -->
 
-             <div class="dashboard">
+            <div class="dashboard">
                 <h2>Dashboard</h2>
 
                 <div class="dashboard-grid">
@@ -474,44 +88,6 @@ background:rgb(82, 165, 165); ;
 
                 </div>
 
-             </div>
-
-        </section>
-        <!-- search and sort container -->
-
-        <section class="controls">
-
-            <div class="search-box">
-                <input type="text" id="search" placeholder="Search by Name or Roll Number">
-            </div>
-
-            <div class="sort-buttons">
-
-                <button onclick="SortMarksAsc()">
-                    Sort Marks ↑
-                </button>
-
-                <button onclick="SortMarksDesc()">
-                    Sort Marks ↓
-                </button>
-
-                <button onclick="SortName()">
-                    Sort Name A-Z 
-                </button>
-
-                <!-- Bonus Features -->
-                 <button onclick="showAll()">
-                    Show All
-                 </button>
-
-                 <button onclick="showPassed()">
-                    Show Passed
-                 </button>
-
-                 <button onclick="showFailed()">
-                    Show Failed
-                 </button>
-
             </div>
 
         </section>
@@ -519,49 +95,66 @@ background:rgb(82, 165, 165); ;
         <!-- Student table -->
 
         <section class="table-section">
+            <div class="table-top">
+                <input type="text" id="search" class="table-search" placeholder="Search....">
 
-        <h2>STUDENT RECORDS</h2>
+                <select id="filterSort" onchange="handleSelection()">
 
-        <table>
-            <thead>
-                <tr>
+                    <option value="">Select Option</option>
+                    <option value="MarksAsc">Sort Marks ↑</option>
+                    <option value="MarksDesc">Sort Marks ↓</option>
+                    <option value="name">Sort Name A-Z</option>
+                    <option value="all">Show All</option>
+                    <option value="Passed">Show Passed</option>
+                    <option value="failed">Show Failed</option>
 
-                    <th>Roll No</th>
-                    <th>Student Name</th>
-                    <th>Marks</th>
-                    <th>Grade</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                </select>
 
-                </tr>
+            </div>
 
-            </thead>
+            <h2>STUDENT RECORDS</h2>
 
-            <tbody id="studentTable">
+            <table>
+                <thead>
+                    <tr>
 
-            </tbody>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Marks</th>
+                        <th>Grade</th>
+                        <th>Status</th>
+                        <th>Actions</th>
 
-        </table>
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentTable">
+
+                </tbody>
+
+            </table>
 
         </section>
 
-      </main>
+    </main>
 
-      <!-- Footer  -->
-    
-<footer class="footer">
+    <!-- Footer  -->
 
-    <p>
-        Student Grade Management System
+    <footer class="footer">
 
-        <br>
+        <p>
+            Student Grade Management System
 
-        • HTML  • CSS  • JAVASCRIPT
-    </p>
+            <br>
 
-</footer>
+            • HTML • CSS • JAVASCRIPT
+        </p>
 
-<script src="script.js"></script>
+    </footer>
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
