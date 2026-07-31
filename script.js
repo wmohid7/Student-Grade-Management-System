@@ -177,7 +177,15 @@ function editStudent(index) {
 
     editIndex = index;
     addBtn.textContent = "Update Student";
+
+    document.querySelector(".student-form").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    nameInput.focus();
 }
+
 
 function deleteStudent(index) {
 
